@@ -1,0 +1,4 @@
+curtis:
+  name: Curtis Lawson
+  email: tyrantt47@hotmail.com
+  password_digest: <%= User.digest('password') %>
