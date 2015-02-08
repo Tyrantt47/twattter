@@ -1,0 +1,5 @@
+Hi <%= @user.name %>,
+
+Welcome to the Twattter! Enjoy this shit and FUCK YOU!
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
