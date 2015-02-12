@@ -15,11 +15,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                password_confirmation: "bar" }
     end
     assert_template 'users/new'
-    assert_select 'div#<CSS id for error explanation>'
-    assert_select 'div.<CSS class for field with error>'
+    assert_select 'div#error_explanation'
+    assert_select 'div.field_with_errors'
   end
 
-    test "valid signup information with account activation" do
+  test "valid signup information with account activation" do
     get signup_path
     assert_difference 'User.count', 1 do
       post users_path, user: { name:  "Example User",
@@ -36,10 +36,10 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     # Invalid activation token
     get edit_account_activation_path("invalid token")
     assert_not is_logged_in?
-    # Valid token, wrong email.
+    # Valid token, wrong email
     get edit_account_activation_path(user.activation_token, email: 'wrong')
     assert_not is_logged_in?
-    # Valid activation token.
+    # Valid activation token
     get edit_account_activation_path(user.activation_token, email: user.email)
     assert user.reload.activated?
     follow_redirect!
